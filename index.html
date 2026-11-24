@@ -86,6 +86,7 @@ img { display: block; max-width: 100%; height: auto; }
 .small { font-size: var(--t14); color: var(--ink-2); }
 .human { color: var(--human); }
 section { padding-block: clamp(72px, 10vw, 120px) 0; scroll-margin-top: 16px; }
+section:has(> .part-band) { padding-top: clamp(80px, 11vw, 136px); }
 .screen { background: var(--scr); color: var(--scr-text); }
 
 /* 첫 화면 */
@@ -140,7 +141,11 @@ section { padding-block: clamp(72px, 10vw, 120px) 0; scroll-margin-top: 16px; }
 @media (max-width: 700px) { .banner img { aspect-ratio: 16 / 8; } }
 
 /* 갈래 안: 한 줄 주제, 역할 나눔, 배운 점 */
-.part-head .thesis-s { color: var(--ink); font-size: var(--t21); font-weight: 600; line-height: 1.5; }
+.part-band { background: var(--scr); border-top: 4px solid var(--scr-ink); padding-block: clamp(32px, 4.5vw, 52px); margin-bottom: clamp(8px, 2vw, 16px); }
+.part-band h2 { color: var(--scr-text); font-size: clamp(40px, 5.4vw, 60px); }
+.part-key { display: flex; gap: 14px; font-size: var(--t14); color: var(--scr-dim); margin-bottom: 8px; font-variant-numeric: tabular-nums; }
+.part-key span:first-child { color: var(--scr-ink); font-weight: 700; }
+.part-band .thesis-s { color: var(--scr-text); font-size: var(--t21); font-weight: 600; line-height: 1.5; max-width: 30em; }
 .roleblock { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 48px; margin-top: 30px; }
 .roleblock > div { min-width: 0; padding-top: 10px; border-top: 3px solid var(--sys); }
 .roleblock > div.me { border-top-color: var(--human); }
@@ -148,7 +153,7 @@ section { padding-block: clamp(72px, 10vw, 120px) 0; scroll-margin-top: 16px; }
 .roleblock .me h3 { color: var(--human); }
 .roleblock ul { padding-left: 1.1em; margin-top: 8px; display: grid; gap: 4px; font-size: var(--t16); }
 @media (max-width: 760px) { .roleblock { grid-template-columns: 1fr; } }
-.lesson { margin-top: 8px; padding-block: 24px 0; border-top: 2px solid var(--ink); display: grid; grid-template-columns: 8em minmax(0, 1fr); gap: 6px 40px; }
+.lesson { margin-top: 8px; padding: 24px clamp(16px, 2.5vw, 28px); background: var(--raise); border-left: 4px solid var(--human); display: grid; grid-template-columns: 8em minmax(0, 1fr); gap: 6px 40px; }
 .lesson b { font-size: var(--t21); line-height: 1.3; }
 .lesson p { max-width: 46em; }
 @media (max-width: 640px) { .lesson { grid-template-columns: 1fr; } }
@@ -168,14 +173,16 @@ section { padding-block: clamp(72px, 10vw, 120px) 0; scroll-margin-top: 16px; }
 .thumbs span { font-size: var(--t14); font-weight: 600; color: var(--ink-2); }
 
 /* 갈래 머리 */
-.part-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px 48px; align-items: end; padding-bottom: 8px; }
-.part-head p { color: var(--ink-2); max-width: 36em; }
+.part-head { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px 48px; align-items: end; }
 @media (max-width: 860px) { .part-head { grid-template-columns: 1fr; } }
 
 /* 결정 한 줄: 내 말 + 선택지 → 결과 그림 */
-.dec { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 24px 48px; padding-block: 28px; align-items: start; scroll-margin-top: 16px; }
-.roleblock + .dec, .anno-hub + .dec { margin-top: 40px; }
-.dec + .dec { margin-top: 28px; }
+section { counter-reset: dec; }
+.dec { counter-increment: dec; display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 20px 48px; padding-block: 28px 56px; align-items: start; scroll-margin-top: 16px; border-top: 2px solid var(--ink); }
+.dec > div:first-child { position: sticky; top: 24px; }
+.dec > div:first-child::before { content: "결정 " counter(dec, decimal-leading-zero); display: block; font-size: var(--t14); font-weight: 700; color: var(--human); margin-bottom: 6px; font-variant-numeric: tabular-nums; }
+.roleblock + .dec, .anno-hub + .dec { margin-top: 56px; }
+.dec + .lesson { margin-top: 0; }
 .dec .intent { margin-top: 10px; font-size: var(--t18); line-height: 1.7; }
 .dec .out { min-width: 0; display: grid; gap: 10px; }
 .dec .out > img, .pair img { width: 100%; background: var(--scr); }
@@ -185,7 +192,7 @@ section { padding-block: clamp(72px, 10vw, 120px) 0; scroll-margin-top: 16px; }
 .pair figure { min-width: 0; display: grid; gap: 6px; }
 .pair span { font-size: var(--t14); font-weight: 600; color: var(--ink-2); }
 .pair span.now, .trio span.now { color: var(--sys); }
-@media (max-width: 860px) { .dec { grid-template-columns: 1fr; padding-block: 32px; } }
+@media (max-width: 860px) { .dec { grid-template-columns: 1fr; padding-block: 24px 44px; } .dec > div:first-child { position: static; } }
 
 
 /* 결정 줄 안 사진 묶음 */
@@ -265,7 +272,7 @@ section { padding-block: clamp(72px, 10vw, 120px) 0; scroll-margin-top: 16px; }
 .film figcaption { margin-top: 10px; }
 
 /* AI 협업 구조 */
-.ai-block { margin-top: clamp(40px, 5vw, 60px); display: grid; gap: 10px; }
+.ai-block { margin-top: clamp(40px, 5vw, 60px); display: grid; gap: 10px; border-top: 2px solid var(--ink); padding-top: 24px; }
 .ai-block > h3 { font-size: var(--t21); }
 .ai-block .intent { max-width: 46em; }
 .ai-block .svgbox { margin-top: 8px; }
@@ -435,11 +442,13 @@ kbd::after { content: "]"; color: var(--ink-2); font-weight: 400; }
 
 <!-- 1. 레벨 -->
 <section id="level">
-  <div class="wrap">
-    <div class="part-head">
-      <h2>레벨</h2>
+  <header class="part-band">
+    <div class="wrap part-head">
+      <div><p class="part-key"><span>[2]</span><span>결정 5개</span></p><h2>레벨</h2></div>
       <p class="thesis-s">규격을 먼저 정하고, 그 규격을 지키는 툴로 구역 두 곳을 지었다.</p>
     </div>
+  </header>
+  <div class="wrap">
     <div class="roleblock">
       <div class="me"><h3>내가 한 일</h3><ul><li>시안보다 규격을 먼저 정함</li><li>툴 요구 정의: 탑뷰, 달리기·걷기·웅크리기 이동 시간</li><li>연결 보강과 깊이 방향 확장을 결정</li><li>구역 두 곳의 조감도를 보고 확정</li></ul></div>
       <div><h3>AI가 한 일</h3><ul><li>카메라·칸·통로 폭마다 안을 렌더해 비교</li><li>Godot 편집기 플러그인 레벨 툴을 3단계로 구현</li><li>레벨 파일 생성, 길찾기 멈춤 수정, 자동 검사</li></ul></div>
@@ -533,11 +542,13 @@ kbd::after { content: "]"; color: var(--ink-2); font-weight: 400; }
 
 <!-- 2. 게임 시스템 -->
 <section id="system">
-  <div class="wrap">
-    <div class="part-head">
-      <h2>게임 시스템</h2>
+  <header class="part-band">
+    <div class="wrap part-head">
+      <div><p class="part-key"><span>[3]</span><span>결정 6개</span></p><h2>게임 시스템</h2></div>
       <p class="thesis-s">준비가 쓸모 있었다는 감각을, 잃을 수 있는 판돈으로 받친다.</p>
     </div>
+  </header>
+  <div class="wrap">
     <div class="roleblock">
       <div class="me"><h3>내가 한 일</h3><ul><li>구역마다 다른 제약에 맞춰 준비하는 빌드를 차별점으로 정함</li><li>빌드 시점, 판돈, 구역 순환 규칙을 결정</li><li>직접 플레이하며 부족한 점을 찾아 고칠 방향을 정함</li></ul></div>
       <div><h3>AI가 한 일</h3><ul><li>타르코프·덕코프·다크앤다커 분석(판돈·변환·결핍)</li><li>결정마다 선택지와 장단점 정리</li><li>차오르는 물·체온·수호체 구현과 헤드리스 검사</li></ul></div>
@@ -689,11 +700,13 @@ kbd::after { content: "]"; color: var(--ink-2); font-weight: 400; }
 
 <!-- 3. UI 디자인 -->
 <section id="ui">
-  <div class="wrap">
-    <div class="part-head">
-      <h2>UI 디자인</h2>
+  <header class="part-band">
+    <div class="wrap part-head">
+      <div><p class="part-key"><span>[4]</span><span>결정 6개</span></p><h2>UI 디자인</h2></div>
       <p class="thesis-s">시안마다 레퍼런스로 되돌리며 CRT 단말 하나로 통일했다.</p>
     </div>
+  </header>
+  <div class="wrap">
     <div class="roleblock">
       <div class="me"><h3>내가 한 일</h3><ul><li>레퍼런스 게임을 기준으로 UI 방향을 정함</li><li>HUD에 남길 정보와 뺄 정보를 정함</li><li>등급·젬 축·아이콘 방식을 비교안에서 고름</li></ul></div>
       <div><h3>AI가 한 일</h3><ul><li>Alien: Isolation·Lethal Company·타르코프·덕코프 스크린샷 조사</li><li>시안을 실제 게임 화면 위에 그려 비교</li><li>Godot UI 코드와 3D 아이콘 렌더</li></ul></div>
@@ -832,11 +845,13 @@ kbd::after { content: "]"; color: var(--ink-2); font-weight: 400; }
 
 <!-- AI 협업 -->
 <section id="ai">
-  <div class="wrap">
-    <div class="part-head">
-      <h2>AI 협업 구조</h2>
+  <header class="part-band">
+    <div class="wrap part-head">
+      <div><p class="part-key"><span>[5]</span></p><h2>AI 협업 구조</h2></div>
       <p class="thesis-s">결정은 사람이, 실행은 영역별 AI 세션이. 메인 세션이 쪼개고 합친다.</p>
     </div>
+  </header>
+  <div class="wrap">
 
     <figure class="ai-block">
       <h3>세션 나무: 메인 아래 14개</h3>
